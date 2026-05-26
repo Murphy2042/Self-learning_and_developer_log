@@ -1,4 +1,4 @@
-### Welcome to my learning and developer log
+### Welcome to my learning and development log
 
 Hello everyone! Its too boring to leaning programming myself.
 So I decided to creat a depository to record my learning progress.
