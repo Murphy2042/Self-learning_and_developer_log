@@ -1,11 +1,13 @@
-# test_learning_github
-## only for getting familiar with the github environment 
+# Welcome to my learning and developer log
+## learning list
 
 - [x] learning how to use Github
-- [ ] learn python on youtube
+- [ ] learn python 
+- [ ] do some project using python
+- [ ] upload the project on github
+- [ ] learn some auxiliary language such as bash, HTML....
 
-| time | name | topic |
-|---:|---|---|
-| afternoon | Simon | IEM |
-
-
+#### project to be done
+- [x] make a Gomoku python program
+- [ ] make a Go python program
+- [ ] import AI API into the Go python program
