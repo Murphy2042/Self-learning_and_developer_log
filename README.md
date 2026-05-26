@@ -1,4 +1,4 @@
-# Welcome to my learning and developer log
+# Welcome to my learning and developer log for python
 ## learning list
 
 - [x] learning how to use Github
