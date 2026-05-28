@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>9x9 Gomoku</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    #board {
+      display: grid;
+      grid-template-columns: repeat(9, 40px);
+      grid-template-rows: repeat(9, 40px);
+      gap: 2px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .cell {
+      width: 40px;
+      height: 40px;
+      background-color: #deb887;
+      border: 1px solid #8b5a2b;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .cell:hover {
+      background-color: #d2a86a;
+    }
+
+    #status {
+      font-size: 20px;
+      margin-top: 20px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 8px 16px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>9x9 Gomoku</h1>
+
+  <div id="status">Black to move</div>
+
+  <div id="board"></div>
+
+  <button onclick="resetGame()">Restart</button>
+
+  <script>
+    const BOARD_SIZE = 9;
+    let board = [];
+    let currentPlayer = 1;
+    let gameOver = false;
+
+    function createBoard() {
+      board = [];
+
+      for (let row = 0; row < BOARD_SIZE; row++) {
+        let newRow = [];
+
+        for (let col = 0; col < BOARD_SIZE; col++) {
+          newRow.push(0);
+        }
+
+        board.push(newRow);
+      }
+    }
+
+    function drawBoard() {
+      const boardDiv = document.getElementById("board");
+      boardDiv.innerHTML = "";
+
+      for (let row = 0; row < BOARD_SIZE; row++) {
+        for (let col = 0; col < BOARD_SIZE; col++) {
+          const cell = document.createElement("button");
+          cell.className = "cell";
+
+          if (board[row][col] === 1) {
+            cell.textContent = "●";
+          } else if (board[row][col] === 2) {
+            cell.textContent = "○";
+          } else {
+            cell.textContent = "";
+          }
+
+          cell.onclick = function () {
+            makeMove(row, col);
+          };
+
+          boardDiv.appendChild(cell);
+        }
+      }
+    }
+
+    function isInside(row, col) {
+      return row >= 0 && row < BOARD_SIZE && col >= 0 && col < BOARD_SIZE;
+    }
+
+    function isValidMove(row, col) {
+      return isInside(row, col) && board[row][col] === 0;
+    }
+
+    function countOneDirection(row, col, player, dr, dc) {
+      let count = 0;
+      let r = row + dr;
+      let c = col + dc;
+
+      while (isInside(r, c) && board[r][c] === player) {
+        count++;
+        r += dr;
+        c += dc;
+      }
+
+      return count;
+    }
+
+    function checkWin(row, col, player) {
+      const directions = [
+        [0, 1],
+        [1, 0],
+        [1, 1],
+        [1, -1]
+      ];
+
+      for (const [dr, dc] of directions) {
+        let count = 1;
+
+        count += countOneDirection(row, col, player, dr, dc);
+        count += countOneDirection(row, col, player, -dr, -dc);
+
+        if (count >= 5) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    function makeMove(row, col) {
+      if (gameOver) {
+        return;
+      }
+
+      if (!isValidMove(row, col)) {
+        return;
+      }
+
+      board[row][col] = currentPlayer;
+      drawBoard();
+
+      if (checkWin(row, col, currentPlayer)) {
+        if (currentPlayer === 1) {
+          document.getElementById("status").textContent = "Black wins!";
+        } else {
+          document.getElementById("status").textContent = "White wins!";
+        }
+
+        gameOver = true;
+        return;
+      }
+
+      if (currentPlayer === 1) {
+        currentPlayer = 2;
+        document.getElementById("status").textContent = "White to move";
+      } else {
+        currentPlayer = 1;
+        document.getElementById("status").textContent = "Black to move";
+      }
+    }
+
+    function resetGame() {
+      currentPlayer = 1;
+      gameOver = false;
+      createBoard();
+      drawBoard();
+      document.getElementById("status").textContent = "Black to move";
+    }
+
+    createBoard();
+    drawBoard();
+  </script>
+</body>
+</html>
