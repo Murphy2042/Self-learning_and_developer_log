@@ -1,3 +1,8 @@
+# Dev log
+# I used while and if statement to make sure it has the lowest RAW and the most stable stracture.
+# Shortcomings: it can not be saved to your computer directly, and not beautiful enough
+
+
 tasks=[]
 print("=====To-do lis=====")
 print("1. add task")
