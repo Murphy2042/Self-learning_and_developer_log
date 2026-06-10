@@ -1,3 +1,7 @@
+# Development log
+# in this file, i practiced how to generate a 9*9 board and use key and value to represent it. 
+# The coordination between various functions are truly important.
+
 board_size=9
 def creat_board(size=board_size):
     return [[0 for _ in range(size)] for _ in range(size)]
